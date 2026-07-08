@@ -31,6 +31,47 @@ MCP server는 다음 tool을 제공합니다.
 
 `eks_render_report`는 제공하지 않습니다. Markdown 요약과 설명은 Skill/LLM 레이어가 담당합니다.
 
+## 레포 구조
+
+```text
+eks-maturity-advisor-plugin/
+├── .codex-plugin/
+│   └── plugin.json              # Codex Plugin manifest
+├── .mcp.json                    # Codex가 실행할 MCP stdio server 설정
+├── package.json                 # npm workspaces와 개발 명령
+├── tsconfig.base.json           # workspace 공통 TypeScript 설정
+├── packages/
+│   ├── core/
+│   │   ├── package.json
+│   │   └── src/
+│   │       ├── catalog.ts       # catalog snapshot 로딩과 control 검색
+│   │       ├── cli.ts           # scan-repo, scan-live, catalog-import CLI
+│   │       ├── finding.ts       # finding 생성, priority/status 정렬
+│   │       ├── liveScanner.ts   # current-context 기반 live cluster read-only scan
+│   │       ├── remediation.ts   # findings 기반 개선 계획 생성
+│   │       ├── repositoryScanner.ts # Kubernetes YAML repo scan
+│   │       ├── safety.ts        # path 검증, command allowlist, redaction
+│   │       └── schemas.ts       # zod schema와 공통 타입
+│   └── mcp-server/
+│       ├── package.json
+│       └── src/
+│           └── server.ts        # MCP tool 정의와 stdio server
+├── references/
+│   ├── catalog.json             # EKS maturity catalog snapshot
+│   └── quick-wins-v1.md         # scanner rule/reference 문서
+├── skills/
+│   └── eks-maturity-advisor/
+│       ├── SKILL.md             # Codex Skill 사용 지침
+│       ├── agents/openai.yaml   # Skill UI metadata
+│       └── scripts/scan.mjs     # MCP 미사용 시 fallback CLI wrapper
+└── tests/
+    ├── core.test.mjs            # repo/live scanner와 remediation 테스트
+    ├── mcp.test.mjs             # MCP tool schema/handler 테스트
+    └── safety.test.mjs          # command/path/redaction safety regression 테스트
+```
+
+구조의 핵심은 `packages/core`가 모든 판정 로직을 소유하고, `packages/mcp-server`와 Skill은 그 로직을 호출하는 얇은 계층으로 남기는 것입니다. 이렇게 하면 CLI, MCP, Skill fallback이 같은 scanner 계약을 공유합니다.
+
 ## 사용 방법
 
 의존성을 설치하고 빌드합니다.
