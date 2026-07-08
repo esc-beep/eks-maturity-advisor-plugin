@@ -1,0 +1,4 @@
+interface:
+  display_name: "EKS Maturity Advisor"
+  short_description: "Assess EKS maturity read-only"
+  default_prompt: "Use $eks-maturity-advisor to assess this EKS repository against K8RVIS maturity controls."

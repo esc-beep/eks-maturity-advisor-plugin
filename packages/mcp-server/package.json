@@ -1,0 +1,23 @@
+{
+  "name": "@k8rvis/eks-maturity-advisor-mcp",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./dist/server.js",
+  "types": "./dist/server.d.ts",
+  "bin": {
+    "eks-maturity-advisor-mcp": "./dist/server.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@k8rvis/eks-maturity-advisor-core": "file:../core",
+    "@modelcontextprotocol/sdk": "^1.15.0",
+    "zod": "^3.25.76",
+    "zod-to-json-schema": "^3.24.6"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.10",
+    "typescript": "^5.8.3"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "eks-maturity-advisor": {
+      "command": "node",
+      "args": [
+        "./packages/mcp-server/dist/server.js"
+      ]
+    }
+  }
+}

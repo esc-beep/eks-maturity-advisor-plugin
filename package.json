@@ -1,0 +1,30 @@
+{
+  "name": "eks-maturity-advisor-plugin",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/core",
+    "packages/mcp-server"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "test": "npm run build && node --test tests/*.test.mjs",
+    "mcp:dev": "npm run build --workspace @k8rvis/eks-maturity-advisor-mcp && node packages/mcp-server/dist/server.js",
+    "scan:repo": "npm run build --workspace @k8rvis/eks-maturity-advisor-core && node packages/core/dist/cli.js scan-repo",
+    "scan:live": "npm run build --workspace @k8rvis/eks-maturity-advisor-core && node packages/core/dist/cli.js scan-live",
+    "catalog:import": "npm run build --workspace @k8rvis/eks-maturity-advisor-core && node packages/core/dist/cli.js catalog-import",
+    "validate:plugin": "python3 /Users/esc/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py ."
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^24.0.10",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.15.0",
+    "js-yaml": "^4.1.1",
+    "zod": "^3.25.76",
+    "zod-to-json-schema": "^3.24.6"
+  }
+}

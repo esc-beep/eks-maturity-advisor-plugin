@@ -1,0 +1,23 @@
+{
+  "name": "eks-maturity-advisor-plugin",
+  "version": "0.1.0",
+  "description": "Assess EKS maturity with a read-only Codex skill and MCP server.",
+  "author": {
+    "name": "K8RVIS"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "EKS Maturity Advisor",
+    "shortDescription": "Read-only EKS maturity scans and remediation plans.",
+    "longDescription": "EKS Maturity Advisor combines a Codex skill and local MCP server to assess Kubernetes manifests and current EKS clusters against K8RVIS maturity controls without mutating files, clusters, or AWS resources.",
+    "developerName": "K8RVIS",
+    "category": "Developer",
+    "capabilities": ["Interactive"],
+    "defaultPrompt": [
+      "Assess this EKS repo against maturity controls.",
+      "Scan my current EKS context read-only.",
+      "Create a remediation plan for these findings."
+    ]
+  },
+  "mcpServers": "./.mcp.json"
+}
